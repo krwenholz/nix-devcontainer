@@ -1,22 +1,24 @@
+I've forked the original xtruder/nix-devcontainer repo to extend for my own purposes,
+upgrade some things, and learn. Below is the original README for my own reference.
+
 # nix-devcontainer
 
 ![workflow status](https://github.com/xtruder/nix-devcontainer/actions//workflows/ci.yml/badge.svg)
-
 
 ## Summary
 
 **Swiss army knife container for vscode development environments**
 
-| Metadata                    | Value                                                                         |
-| --------------------------- | ----------------------------------------------------------------------------- |
-| *Image*                     | [ghcr.io/xtruder/nix-devcontainer](https://github.com/xtruder/nix-devcontainer/pkgs/container/nix-devcontainer) |
-| *Image tags*                | v1,latest,edge                                                                |
-| *Definition type*           | standalone or Docker Compose                                                  |
-| *Works in Codespaces*       | Yes                                                                           |
-| *Container host OS support* | Linux, macOS, Windows                                                         |
-| *Languages, platforms*      | All languages that nix supports                                               |
-| *Contributors*              | [@offlinehacker](github.com/offlinehacker), [@Rizary](github.com/rizary)      |
-| *Maintainer*                | Jaka Hudoklin <jaka@x-truder.net> [@offlinehacker](github.com/offlinehacker)  |
+| Metadata                    | Value                                                                                                           |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| _Image_                     | [ghcr.io/xtruder/nix-devcontainer](https://github.com/xtruder/nix-devcontainer/pkgs/container/nix-devcontainer) |
+| _Image tags_                | v1,latest,edge                                                                                                  |
+| _Definition type_           | standalone or Docker Compose                                                                                    |
+| _Works in Codespaces_       | Yes                                                                                                             |
+| _Container host OS support_ | Linux, macOS, Windows                                                                                           |
+| _Languages, platforms_      | All languages that nix supports                                                                                 |
+| _Contributors_              | [@offlinehacker](github.com/offlinehacker), [@Rizary](github.com/rizary)                                        |
+| _Maintainer_                | Jaka Hudoklin <jaka@x-truder.net> [@offlinehacker](github.com/offlinehacker)                                    |
 
 ## Description
 
@@ -31,8 +33,8 @@ that you can use everywhere.
 
 - **[Debian slim](https://hub.docker.com/_/debian) docker image**
 
-   Docker base image, which provides minimalistic environment in which both nix and
-   vscode remote extension can run without any issues.
+  Docker base image, which provides minimalistic environment in which both nix and
+  vscode remote extension can run without any issues.
 
 - **[Nix package manager](https://nixos.org/)**
 
@@ -44,28 +46,28 @@ that you can use everywhere.
 
 - **[Nix Environment Selector](https://marketplace.visualstudio.com/items?itemName=arrterian.nix-env-selector) vscode extension**
 
-   Used to automatically load nix development environment into your vscode and provides
-   capabilities to reload it later when environment changes, without having to rebuild
-   docker image from scratch on every change.
+  Used to automatically load nix development environment into your vscode and provides
+  capabilities to reload it later when environment changes, without having to rebuild
+  docker image from scratch on every change.
 
 - **[Direnv](https://direnv.net/) shell environment loader**
 
-   While nix environment loader extension loads environment for vscode, you
-   want `direnv` to manage you shell environment. `Direnv` loads nix environment
-   (defined by `shell.nix` file) into your shell and reloads it automatically when it changes,
-   keeping your environment fresh.
+  While nix environment loader extension loads environment for vscode, you
+  want `direnv` to manage you shell environment. `Direnv` loads nix environment
+  (defined by `shell.nix` file) into your shell and reloads it automatically when it changes,
+  keeping your environment fresh.
 
 ## Example templates
 
 There are sevaral example templates you can use to quickly bootstrap your project:
 
 - [nix-devcontainer-golang](https://github.com/xtruder/nix-devcontainer-golang/)
-  
+
   Example project using `nix-devcontainer` for golang development, with docker-compose
   running docker-in-docker service for building docker images.
 
 - [nix-devcontainer-python-jupyter](https://github.com/xtruder/nix-devcontainer-python-jupyter/)
-  
+
   Example project using `nix-devcontainer` for python and jupyter notebooks,
   with python packages managed by nix.
 
@@ -124,20 +126,18 @@ Example `.devcontainer/devcontainer.json`:
     "args": {
       "USER_UID": "${localEnv:USER_UID}",
       "USER_GID": "${localEnv:USER_GID}"
-    },
+    }
   },
 
   // run arguments passed to docker
-  "runArgs": [
-    "--security-opt", "label=disable"
-  ],
+  "runArgs": ["--security-opt", "label=disable"],
 
   "containerEnv": {
-     // extensions to preload before other extensions
+    // extensions to preload before other extensions
     "PRELOAD_EXTENSIONS": "arrterian.nix-env-selector"
   },
 
-   // disable command overriding and updating remote user ID
+  // disable command overriding and updating remote user ID
   "overrideCommand": false,
   "userEnvProbe": "loginShell",
   "updateRemoteUserUID": false,
@@ -150,7 +150,7 @@ Example `.devcontainer/devcontainer.json`:
     "vscode": {
       "extensions": [
         // select nix environment
-        "arrterian.nix-env-selector",
+        "arrterian.nix-env-selector"
 
         // extra extensions
         //"fsevenm.run-it-on",
@@ -161,7 +161,7 @@ Example `.devcontainer/devcontainer.json`:
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [],
+  "forwardPorts": []
 
   // Use 'postCreateCommand' to run commands after the container is created.
   // "postCreateCommand": "go version",
@@ -190,7 +190,7 @@ project `.vscode/settings.json` file:
 
 ```json
 {
-    "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix",
+  "nixEnvSelector.nixFile": "${workspaceRoot}/shell.nix"
 }
 ```
 
@@ -211,7 +211,7 @@ Example `.devcontainer/devcontainer.json`:
   "dockerComposeFile": "docker-compose.yml",
   "service": "dev",
   "workspaceFolder": "/workspace",
-  
+
   "userEnvProbe": "loginShell",
   "updateRemoteUserUID": false,
 
@@ -219,26 +219,22 @@ Example `.devcontainer/devcontainer.json`:
   "onCreateCommand": "nix-shell --command 'echo done building nix dev environment'",
 
   // Add the IDs of extensions you want installed when the container is created.
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        // select nix environment
-        "arrterian.nix-env-selector",
+  "extensions": [
+    // select nix environment
+    "arrterian.nix-env-selector"
 
-        // extra extensions
-        //"fsevenm.run-it-on",
-        //"jnoortheen.nix-ide",
-        //"ms-python.python"
-      ]
-    }
-  },
+    // extra extensions
+    //"fsevenm.run-it-on",
+    //"jnoortheen.nix-ide",
+    //"ms-python.python"
+  ]
 }
 ```
 
 Example `.devcontainer/docker-compose.yml`:
 
 ```yaml
-version: '3'
+version: "3"
 services:
   dev:
     build:
@@ -266,7 +262,7 @@ automatically and after you should be ready to start coding.
 Alternativelly you can choose **Remote-Containers: Reopen Folder in Container** from command menu.
 
 If opening a workspace, please make sure you open workspace in devcontainer by selecting
-**Remote-Containers: Open workspace in Container". Remote containers extension does not
+\*\*Remote-Containers: Open workspace in Container". Remote containers extension does not
 currently provide a popup for opening a workspace, but will only provide you with an option
 to open a project in devcontainer or to open workspace locally, but this is not what you want.
 
@@ -303,15 +299,15 @@ workspace settings (`.vscode/settings.json` file in your project.)
 
 ```jsonc
 {
-    "runItOn": {
-        "commands": [
-            {
-                "match": "flake\\.nix",
-                "isShellCommand": false,
-                "cmd": "nixEnvSelector.hitEnv"
-            }
-        ]
-    }
+  "runItOn": {
+    "commands": [
+      {
+        "match": "flake\\.nix",
+        "isShellCommand": false,
+        "cmd": "nixEnvSelector.hitEnv"
+      }
+    ]
+  }
 }
 ```
 
@@ -423,7 +419,7 @@ to mount `docker.sock` in devcontainer:
 
    ```Dockerfile
    ARG DOCKER_GID=966
-   RUN groupadd -g ${DOCKER_GID} docker && usermod -a -G docker ${USERNAME} 
+   RUN groupadd -g ${DOCKER_GID} docker && usermod -a -G docker ${USERNAME}
    ```
 
 **Be aware that exposing docker socket to your development environment is a security risk, as it
@@ -488,7 +484,7 @@ Example `devcontainer.json` settings:
   //...
 
   "extensions": [
-    "arrterian.nix-env-selector",
+    "arrterian.nix-env-selector"
     //...
   ]
 }
