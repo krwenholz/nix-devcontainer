@@ -1,4 +1,4 @@
-FROM ghcr.io/xtruder/nix-devcontainer:v1
+FROM ghcr.io/krwenholz/nix-devcontainer:main
 
 # cache /nix
 VOLUME /nix
