@@ -6,7 +6,7 @@ RUN go build -o /ext-preloader main.go
 
 FROM debian:stable-slim
 
-LABEL maintainer="X-Truder <dev@x-truder.net>"
+LABEL maintainer="Kyle Wenholz <kyle@krwenholz.com>"
 
 # change build shell to /bin/bash, so env will be set correctly
 SHELL ["/bin/bash", "-c"]
@@ -93,11 +93,11 @@ ONBUILD RUN \
     if [ -z ${USER_UID} ] || [ -z ${USER_UID} ] || [ -z ${USERNAME} ]; then exit 0; fi && \
     set -x && \
     if [ "$(id -u code)" != "${USER_UID}" ] || [ "$(id -g code)" != "${USER_GID}" ]; then \
-        groupmod -g ${USER_GID} -n ${USERNAME} code || true && \
-        usermod -u ${USER_UID} -g ${USER_GID} -l ${USERNAME} -m -d /home/${USERNAME} code && \
-        chown -R ${USER_UID}:${USER_GID} /nix && \
-        chown -R ${USER_UID}:${USER_GID} /home/${USERNAME} && \
-        echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/devcontainer; \
+    groupmod -g ${USER_GID} -n ${USERNAME} code || true && \
+    usermod -u ${USER_UID} -g ${USER_GID} -l ${USERNAME} -m -d /home/${USERNAME} code && \
+    chown -R ${USER_UID}:${USER_GID} /nix && \
+    chown -R ${USER_UID}:${USER_GID} /home/${USERNAME} && \
+    echo ${USERNAME} ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/devcontainer; \
     fi
 
 ONBUILD USER ${USERNAME}
