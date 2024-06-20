@@ -16,6 +16,12 @@ on:
       - "./src"
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Give a reason for manually triggering"
+        required: false
+        type: string
 
 env:
   # Use docker.io for Docker Hub if empty
