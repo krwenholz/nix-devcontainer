@@ -1,9 +1,9 @@
-I've forked the original xtruder/nix-devcontainer repo to extend for my own purposes,
+I've forked the original krwenholz/nix-devcontainer repo to extend for my own purposes,
 upgrade some things, and learn. Below is the original README for my own reference.
 
 # nix-devcontainer
 
-![workflow status](https://github.com/xtruder/nix-devcontainer/actions//workflows/ci.yml/badge.svg)
+![workflow status](https://github.com/krwenholz/nix-devcontainer/actions//workflows/release.yml/badge.svg)
 
 ## Summary
 
@@ -11,7 +11,7 @@ upgrade some things, and learn. Below is the original README for my own referenc
 
 | Metadata                    | Value                                                                                                           |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------- |
-| _Image_                     | [ghcr.io/xtruder/nix-devcontainer](https://github.com/xtruder/nix-devcontainer/pkgs/container/nix-devcontainer) |
+| _Image_                     | [ghcr.io/krwenholz/nix-devcontainer](https://github.com/krwenholz/nix-devcontainer/pkgs/container/nix-devcontainer) |
 | _Image tags_                | v1,latest,edge                                                                                                  |
 | _Definition type_           | standalone or Docker Compose                                                                                    |
 | _Works in Codespaces_       | Yes                                                                                                             |
@@ -61,12 +61,12 @@ that you can use everywhere.
 
 There are sevaral example templates you can use to quickly bootstrap your project:
 
-- [nix-devcontainer-golang](https://github.com/xtruder/nix-devcontainer-golang/)
+- [nix-devcontainer-golang](https://github.com/krwenholz/nix-devcontainer-golang/)
 
   Example project using `nix-devcontainer` for golang development, with docker-compose
   running docker-in-docker service for building docker images.
 
-- [nix-devcontainer-python-jupyter](https://github.com/xtruder/nix-devcontainer-python-jupyter/)
+- [nix-devcontainer-python-jupyter](https://github.com/krwenholz/nix-devcontainer-python-jupyter/)
 
   Example project using `nix-devcontainer` for python and jupyter notebooks,
   with python packages managed by nix.
@@ -171,7 +171,7 @@ Example `.devcontainer/devcontainer.json`:
 Example `.devcontainer/Dockerfile`:
 
 ```dockerfile
-FROM ghcr.io/xtruder/nix-devcontainer:v1
+FROM ghcr.io/krwenholz/nix-devcontainer:v1
 
 # cache /nix
 VOLUME /nix
@@ -340,7 +340,7 @@ This will make sure your dev container and service containers are running in sam
 Caching nix store is as simple as adding named docker volume on `/nix`.
 
 ```dockerfile
-FROM ghcr.io/xtruder/nix-devcontainer:v1
+FROM ghcr.io/krwenholz/nix-devcontainer:v1
 VOLUME /nix
 ```
 
@@ -535,9 +535,3 @@ direnv hook which loads nix environment and then it sources `test.sh` script,
 which does a few basic sanity checks.
 
 You should also check if image works with example templates.
-
-## License
-
-Copyright (c) X-Truder. All rights reserved.
-
-Licensed under the MIT License. See [LICENSE](https://github.com/xtruder/nix-devcontainer/blob/master/LICENSE).
